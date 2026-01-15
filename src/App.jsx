@@ -10,7 +10,7 @@ function App() {
   const [unit, setUnit] = useState('C')
   const [search, setSearch] = useState('')
 
-  const API_KEY = 'a57e7031bdd083fb90f57d80bcdda5bf' // Get from https://openweathermap.org/api
+  const API_KEY = 'af85d376e9409edfb431d69777c474d4' // Get from https://openweathermap.org/api
 
   const fetchWeather = async (cityName) => {
     if (!API_KEY || API_KEY === 'YOUR_API_KEY') {
@@ -22,13 +22,27 @@ function App() {
     setError(null)
     try {
       const units = unit === 'C' ? 'metric' : 'imperial'
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${API_KEY}`
       
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${API_KEY}`
-      )
-      if (!res.ok) throw new Error('City not found')
+      console.log('Fetching:', url)
+      const res = await fetch(url)
+      console.log('Response status:', res.status)
+      
+      if (!res.ok) {
+        const error = await res.json()
+        console.error('API Error:', error)
+        
+        if (res.status === 401) {
+          throw new Error('❌ Invalid API key. Check OpenWeatherMap dashboard.')
+        } else if (res.status === 404) {
+          throw new Error(`❌ City "${cityName}" not found. Try another city.`)
+        } else {
+          throw new Error(error.message || `Error: ${res.status}`)
+        }
+      }
       
       const data = await res.json()
+      console.log('Weather data:', data)
       setWeather(data)
       setCity(cityName)
 
@@ -45,6 +59,7 @@ function App() {
       
       setForecast(Object.values(daily).slice(0, 5))
     } catch (err) {
+      console.error('Error:', err)
       setError(err.message)
     } finally {
       setLoading(false)
@@ -53,7 +68,7 @@ function App() {
 
   useEffect(() => {
     fetchWeather(city)
-  }, [unit])
+  }, [unit, city])
 
   const handleSearch = (e) => {
     e.preventDefault()
