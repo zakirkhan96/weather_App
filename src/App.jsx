@@ -13,7 +13,7 @@ function App() {
   const API_KEY = 'Get_your_own_API' // Get from https://openweathermap.org/api
 
   const fetchWeather = async (cityName) => {
-    if (!API_KEY || API_KEY === 'YOUR_API_KEY') {
+    if (!API_KEY || API_KEY === 'Get_your_own_API') {
       setError('Please add your OpenWeatherMap API key to App.jsx')
       return
     }
