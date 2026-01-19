@@ -10,7 +10,7 @@ function App() {
   const [unit, setUnit] = useState('C')
   const [search, setSearch] = useState('')
 
-  const API_KEY = 'af85d376e9409edfb431d69777c474d4' // Get from https://openweathermap.org/api
+  const API_KEY = 'Get_your_own_API' // Get from https://openweathermap.org/api
 
   const fetchWeather = async (cityName) => {
     if (!API_KEY || API_KEY === 'YOUR_API_KEY') {
