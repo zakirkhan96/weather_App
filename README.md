@@ -129,24 +129,6 @@ Preview the production build locally
 - Try a different browser
 - Clear browser cache
 
-## 🚀 Deployment
-
-### Deploy to Netlify (Easiest)
-1. Push your code to GitHub
-2. Go to https://netlify.com
-3. Click "New site from Git"
-4. Select your repository
-5. Build command: `npm run build`
-6. Publish directory: `dist`
-7. Click Deploy! 🎉
-
-### Deploy to Vercel
-1. Push your code to GitHub
-2. Go to https://vercel.com
-3. Import your GitHub repository
-4. Click Deploy
-5. Done! 🎉
-
 ## 📝 License
 
 Open source project - feel free to use and modify!
